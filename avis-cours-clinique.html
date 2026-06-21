@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avis sur les cours — Master Psychologie Clinique Intégrative · UNIGE</title>
+<style>
+  :root {
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --red-faint: #fdf2f2;
+    --blue: #2471a3;
+    --blue-faint: #eaf4fb;
+    --gray-900: #1a1a1a;
+    --gray-700: #444;
+    --gray-500: #777;
+    --gray-300: #ccc;
+    --gray-100: #f5f5f5;
+    --white: #fff;
+    --shadow: 0 2px 8px rgba(0,0,0,.10);
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-900);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--red);
+    color: #fff;
+    padding: 24px 32px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  }
+  header .logo { font-size: 12px; opacity: .75; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  header h1 { font-size: 22px; font-weight: 700; line-height: 1.25; }
+  header p { font-size: 14px; opacity: .8; margin-top: 4px; }
+  .header-meta { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
+  /* FILTER PILLS */
+  .filter-section { margin-top: 14px; }
+  .filter-group { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .filter-group-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    opacity: .6;
+    min-width: 32px;
+  }
+  .filter-pill {
+    background: rgba(255,255,255,.18);
+    border: 1.5px solid rgba(255,255,255,.3);
+    color: #fff;
+    border-radius: 20px;
+    padding: 4px 13px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s, opacity .15s, border-color .15s;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .filter-pill:hover { background: rgba(255,255,255,.28); }
+  .filter-pill.off {
+    background: rgba(0,0,0,.15);
+    border-color: rgba(255,255,255,.12);
+    opacity: .45;
+    text-decoration: line-through;
+  }
+
+  /* LAYOUT */
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 16px; }
+
+  /* SEARCH */
+  .search-bar {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+  }
+  .search-bar input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 15px;
+    color: var(--gray-900);
+  }
+  .search-bar svg { color: var(--gray-400); flex-shrink: 0; }
+
+  /* MODULE SECTIONS */
+  .module-section { margin-bottom: 32px; }
+  .module-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--red);
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .module-title.of {
+    background: var(--blue);
+  }
+  .module-title .credits {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: .8;
+    background: rgba(255,255,255,.18);
+    border-radius: 20px;
+    padding: 2px 10px;
+  }
+  .axe-title {
+    background: var(--red-faint);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-left: 3px solid var(--red);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .axe-title.of {
+    background: var(--blue-faint);
+    color: var(--blue);
+    border-left-color: var(--blue);
+  }
+  .course-item:hover.of-hover { background: #eaf4fb; }
+
+  /* COURSE CARDS */
+  .course-list { background: var(--white); border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  .course-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+    transition: background .12s;
+  }
+  .course-item:last-child { border-bottom: none; }
+  .course-item:hover { background: #fdf6f6; }
+  .course-code {
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--gray-500);
+    min-width: 72px;
+    flex-shrink: 0;
+  }
+  .course-info { flex: 1; min-width: 0; }
+  .course-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.3;
+  }
+  .course-meta { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .course-ratings {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .mini-stars { color: #f39c12; font-size: 14px; }
+  .mini-count { font-size: 12px; color: var(--gray-500); }
+  .no-review { font-size: 12px; color: var(--gray-400); font-style: italic; }
+  .chevron { color: var(--gray-300); margin-left: 4px; }
+
+  /* MODAL */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 100;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-y: auto;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    animation: slideUp .2s ease;
+    overflow: hidden;
+  }
+  @keyframes slideUp {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  .modal-header {
+    background: var(--red);
+    color: #fff;
+    padding: 20px 24px;
+  }
+  .modal-header h2 { font-size: 18px; font-weight: 700; line-height: 1.3; }
+  .modal-header p { font-size: 13px; opacity: .75; margin-top: 4px; }
+  .modal-header .close-btn {
+    float: right;
+    background: rgba(255,255,255,.2);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 30px; height: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    margin-left: 12px;
+    transition: background .15s;
+  }
+  .modal-header .close-btn:hover { background: rgba(255,255,255,.35); }
+
+  .modal-body { padding: 24px; }
+
+  /* AGGREGATE STATS */
+  .agg-section {
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  .agg-section h3 { font-size: 14px; font-weight: 700; color: var(--gray-700); margin-bottom: 12px; }
+  .agg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .agg-item { background: var(--white); border-radius: 8px; padding: 10px 12px; }
+  .agg-label { font-size: 11px; color: var(--gray-500); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .4px; }
+  .agg-score {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  .agg-score .stars { font-size: 14px; color: #f39c12; }
+  .agg-score .n { font-size: 12px; font-weight: 400; color: var(--gray-500); }
+  .agg-modalities { margin-top: 12px; }
+  .agg-modalities .mod-tag {
+    display: inline-block;
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    margin: 2px 3px 2px 0;
+    color: var(--gray-700);
+  }
+  .no-reviews-msg { text-align: center; color: var(--gray-500); font-size: 14px; padding: 8px 0; }
+
+  /* ADD REVIEW FORM */
+  .form-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gray-100);
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+  }
+  .form-group label span.req { color: var(--red); margin-left: 2px; }
+
+  /* STAR RATING INPUT */
+  .star-input { display: flex; gap: 6px; align-items: center; }
+  .star-input button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    color: #ddd;
+    transition: color .1s, transform .1s;
+    padding: 0;
+  }
+  .star-input button.active,
+  .star-input button:hover { color: #f39c12; }
+  .star-input button:hover { transform: scale(1.15); }
+  .star-label { font-size: 12px; color: var(--gray-500); margin-left: 6px; }
+
+  /* MODALITY SELECT */
+  .form-group select, .form-group textarea {
+    width: 100%;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--gray-900);
+    outline: none;
+    transition: border-color .15s;
+    font-family: inherit;
+  }
+  .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  /* NICKNAME */
+  .form-group input[type=text] {
+    width: 100%;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--gray-900);
+    outline: none;
+    transition: border-color .15s;
+    font-family: inherit;
+  }
+  .form-group input[type=text]:focus { border-color: var(--red); }
+
+  .submit-btn {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: background .15s;
+  }
+  .submit-btn:hover { background: var(--red-light); }
+
+  /* REVIEWS LIST */
+  .reviews-section { margin-bottom: 24px; }
+  .reviews-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gray-100);
+  }
+  .review-card {
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .review-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .reviewer-name { font-weight: 600; font-size: 13px; }
+  .review-date { font-size: 11px; color: var(--gray-500); margin-left: auto; }
+  .review-mod-tag {
+    background: var(--red-faint);
+    color: var(--red);
+    border-radius: 12px;
+    padding: 2px 9px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .review-ratings-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .review-rating-chip {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .review-rating-chip .chip-stars { color: #f39c12; }
+  .review-rating-chip .chip-label { color: var(--gray-500); }
+  .review-comment { font-size: 13px; color: var(--gray-700); line-height: 1.5; margin-top: 6px; }
+
+  /* HELPER */
+  .empty { text-align: center; padding: 40px 0; color: var(--gray-400); font-size: 14px; }
+  .section-count {
+    background: rgba(255,255,255,.25);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    margin-left: 8px;
+  }
+  .hidden { display: none; }
+
+  @media (max-width: 540px) {
+    header { padding: 18px 16px; }
+    header h1 { font-size: 18px; }
+    .agg-grid { grid-template-columns: 1fr; }
+    .modal-body { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Université de Genève · FPSE</div>
+  <h1>Avis sur les cours</h1>
+  <p>Master de Psychologie Clinique Intégrative — 2025–2026</p>
+  <div class="filter-section" id="filterSection"></div>
+</header>
+
+<div class="container">
+  <div class="search-bar">
+    <svg width="18" height="18" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Rechercher un cours ou un professeur…" oninput="filterCourses()">
+  </div>
+
+  <div id="coursesContainer"></div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalMeta"></p>
+    </div>
+    <div class="modal-body">
+      <div id="aggSection" class="agg-section"></div>
+      <div id="reviewsList" class="reviews-section"></div>
+      <div class="form-section">
+        <h3>✏️ Laisser un avis</h3>
+        <div class="form-group">
+          <label>Qualité globale du cours <span class="req">*</span></label>
+          <div class="star-input" id="stars_global" data-field="global"></div>
+        </div>
+        <div class="form-group">
+          <label>Qualité de l'enseignement <span class="req">*</span></label>
+          <div class="star-input" id="stars_prof" data-field="prof"></div>
+        </div>
+        <div class="form-group">
+          <label>Difficulté de l'examen</label>
+          <div class="star-input" id="stars_exam" data-field="exam"></div>
+        </div>
+        <div class="form-group">
+          <label>Charge de travail</label>
+          <div class="star-input" id="stars_workload" data-field="workload"></div>
+        </div>
+        <div class="form-group">
+          <label>Modalité d'examen</label>
+          <select id="formModality" onchange="toggleModalityOther()">
+            <option value="">— Non précisé —</option>
+            <option value="Présentation de groupe">Présentation de groupe</option>
+            <option value="Travail écrit de groupe">Travail écrit de groupe</option>
+            <option value="Travail écrit individuel">Travail écrit individuel</option>
+            <option value="Contrôle continu (QCM)">Contrôle continu (QCM)</option>
+            <option value="Contrôle continu (écrit)">Contrôle continu (écrit)</option>
+            <option value="Examen en session (QCM)">Examen en session (QCM)</option>
+            <option value="Examen en session (Questions ouvertes)">Examen en session (Questions ouvertes)</option>
+            <option value="__autre__">Autre — préciser…</option>
+          </select>
+          <input type="text" id="formModalityOther" placeholder="Précisez la modalité…" style="display:none; margin-top:8px;">
+        </div>
+        <div class="form-group">
+          <label>Commentaire</label>
+          <textarea id="formComment" placeholder="Partagez votre expérience, des conseils, ce qui vous a plu ou déplu…" rows="4"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitReview()">Publier mon avis</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const MODULES = [
+  {
+    id: "base",
+    label: "Module de base",
+    credits: "27 crédits — 1ère période",
+    axes: [
+      {
+        label: "Axe Psychopathologie",
+        courses: [
+          { code:"751112",  name:"Psychopathologie cognitive",                                                          prof:"G. Ceschi",                    schedule:"A · Mer 12h–14h" },
+          { code:"751115",  name:"Psychopathologie psychodynamique contemporaine",                                      prof:"V. Besch",                      schedule:"A · Lun 12h–14h" },
+          { code:"751139",  name:"Évaluation et intervention en psychopathologie cognitive",                            prof:"G. Ceschi",                    schedule:"P · Mer 8h–10h" },
+          { code:"75113E",  name:"Troubles du sommeil et fonctionnement psychologique",                                 prof:"R. Schmidt",                   schedule:"A · Jeu 18h–20h" },
+          { code:"751144",  name:"Approches contemporaines en intervention cognitivo-comportementale",                  prof:"R. Schmidt",                   schedule:"P · Jeu 18h–20h" },
+          { code:"751118",  name:"Évaluation des interventions dans les domaines de la psychologie clinique",           prof:"P. Voruz",                      schedule:"P · Jeu 8h–10h" },
+        ]
+      },
+      {
+        label: "Axe Neuropsychologie",
+        courses: [
+          { code:"751110",  name:"Neuropsychologie clinique de l'adulte",                                               prof:"A. Brioschi Guevara",           schedule:"A · Ven 8h–10h" },
+          { code:"751111",  name:"Gérontopsychologie générale et clinique",                                             prof:"C. Delaloye",                   schedule:"A · Mar 18h–20h" },
+          { code:"751116",  name:"Neuropsychologie de l'enfant et de l'adolescent",                                    prof:"C. Mayor",                      schedule:"A · Mar 8h–10h" },
+          { code:"751131",  name:"Regards croisés sur la neuropsychologie clinique de l'adulte",                       prof:"J. Péron",                      schedule:"P · Lun 14h–16h" },
+          { code:"751136",  name:"Neuropsychologie clinique intégrative des affections démentielles",                  prof:"A. Juillerat Van der Linden",   schedule:"P · Mar 16h–18h" },
+          { code:"75400",   name:"Neuropsychologie du langage chez l'adulte",                                           prof:"M. Laganaro",                   schedule:"A · Mar 10h–12h" },
+          { code:"751118",  name:"Évaluation des interventions dans les domaines de la psychologie clinique",           prof:"P. Voruz",                      schedule:"P · Jeu 8h–10h" },
+        ]
+      },
+      {
+        label: "Axe Relations interpersonnelles",
+        courses: [
+          { code:"751138",  name:"Relations parents-enfants : évaluation et interventions",                             prof:"H. Tissot",                     schedule:"P · Ven 12h–14h" },
+          { code:"75113A",  name:"Interventions thérapeutiques auprès des familles",                                    prof:"N. Favez",                      schedule:"A · Lun 8h–10h" },
+          { code:"751141",  name:"Psychologie clinique interculturelle",                                                prof:"S. Gaultier",                   schedule:"P · Lun 10h–12h" },
+          { code:"751146",  name:"Psychologie clinique de la santé",                                                    prof:"S. Cairo Notari",               schedule:"P · Mer 10h–12h" },
+          { code:"751118",  name:"Évaluation des interventions dans les domaines de la psychologie clinique",           prof:"P. Voruz",                      schedule:"P · Jeu 8h–10h" },
+        ]
+      },
+      {
+        label: "Axe Situations de handicap",
+        courses: [
+          { code:"751704",  name:"Accompagnement et intervention en psychologie clinique des situations de handicap",   prof:"M. Schneider",                  schedule:"P · Jeu 8h–10h" },
+          { code:"751705",  name:"Psychologie de la déficience auditive chez l'enfant et l'adulte",                    prof:"J. Malsert",                    schedule:"A · Mar 14h–16h" },
+          { code:"752282",  name:"Accompagnement des personnes en situation de handicap : assurances sociales et législation", prof:"J. Laederach",          schedule:"P · Lun 8h–10h" },
+          { code:"751118",  name:"Évaluation des interventions dans les domaines de la psychologie clinique",           prof:"P. Voruz",                      schedule:"P · Jeu 8h–10h" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "approfondi_ouvert",
+    label: "Module approfondi ouvert — Questions approfondies en psychologie clinique",
+    credits: "2ème période",
+    axes: [
+      {
+        label: "Axe Psychopathologie",
+        courses: [
+          { code:"751142",  name:"Questions approfondies en psychologie clinique de l'adolescence",                     prof:"M. Perret-Catipovic",           schedule:"A · Mer 14h–16h" },
+          { code:"751143",  name:"Questions approfondies en psychopathologie de la migration",                          prof:"S. Gaultier",                   schedule:"P · Lun 12h–14h" },
+          { code:"751147",  name:"Questions approfondies en clinique des addictions",                                   prof:"P. Nielsen",                    schedule:"P · Lun 16h–18h" },
+        ]
+      },
+      {
+        label: "Axe Relations interpersonnelles",
+        courses: [
+          { code:"751114",  name:"Questions approfondies en évaluation du couple et de la famille",                     prof:"S. Nashat",                     schedule:"A · Mar 10h–12h" },
+          { code:"75113C",  name:"Questions approfondies en relations interpersonnelles",                               prof:"B. Reverdin",                   schedule:"A · Mar 8h–10h" },
+          { code:"751238",  name:"Questions approfondies en psychologie de la sexualité",                               prof:"H. Faineteau",                  schedule:"P · Mar 18h–20h" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "approfondi_f1",
+    label: "Module approfondi fermé 1 — Savoir-faire en psychologie clinique",
+    credits: "2ème période",
+    axes: [
+      {
+        label: "Cours du module",
+        courses: [
+          { code:"751103",     name:"Approche intégrative de l'entretien clinique",                                     prof:"S. With",                       schedule:"AN · Mer & Jeu 18h–20h" },
+          { code:"751102",     name:"Psychologie de l'entretien",                                                       prof:"N. Favez",                      schedule:"A · Lun 14h–16h" },
+          { code:"751100",     name:"Psychométrie et évaluation psychologique",                                         prof:"T. Lecerf",                     schedule:"P · Jeu 13h–16h" },
+          { code:"751ATPP9",   name:"Atelier de pratique professionnelle",                                              prof:"M. Debbané / P. Nielsen",       schedule:"AN · Lun 18h–20h" },
+          { code:"751STTE6",   name:"Stage de terrain",                                                                 prof:"—",                             schedule:"6 crédits" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "approfondi_f2",
+    label: "Module approfondi fermé 2 — Psychologie clinique des troubles du développement et des situations de handicap",
+    credits: "2ème période",
+    axes: [
+      {
+        label: "Cours du module",
+        courses: [
+          { code:"751708",   name:"Évaluation des troubles du développement chez l'enfant et l'adolescent",             prof:"C. Feller",                     schedule:"P · Lun 12h–14h" },
+          { code:"751709",   name:"Techniques d'entretien et d'observation en psychologie clinique des situations de handicap", prof:"M. Schneider",          schedule:"A · Jeu 12h–14h" },
+          { code:"751102",   name:"Psychologie de l'entretien",                                                         prof:"N. Favez",                      schedule:"A · Lun 14h–16h" },
+          { code:"751701",   name:"Situations de handicap : regards multiples et collaborations",                       prof:"N. Favez / M. Hessels / A. Isler", schedule:"P · Lun 16h–18h" },
+          { code:"751707",   name:"Approche neuropsychologique et clinique des syndromes génétiques dans une perspective lifespan", prof:"J. Maeder",         schedule:"P · Ven 10h–12h" },
+          { code:"751702",   name:"Psychologie de la déficience visuelle chez l'enfant et l'adulte",                   prof:"D. Valente",                    schedule:"A · Mer 16h–18h" },
+          { code:"751100",   name:"Psychométrie et évaluation psychologique",                                           prof:"T. Lecerf",                     schedule:"P · Jeu 13h–16h" },
+          { code:"751STTE6", name:"Stage de terrain",                                                                   prof:"—",                             schedule:"6 crédits" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "approfondi_f3",
+    label: "Module approfondi fermé 3 — Approfondissement en neuropsychologie clinique",
+    credits: "2ème période",
+    axes: [
+      {
+        label: "Cours du module",
+        courses: [
+          { code:"751123",   name:"Rééducation en neuropsychologie clinique de l'adulte",                               prof:"F. Esposito",                   schedule:"A · Jeu 16h–18h" },
+          { code:"751707",   name:"Approche neuropsychologique et clinique des syndromes génétiques dans une perspective lifespan", prof:"J. Maeder",         schedule:"P · Ven 10h–12h" },
+          { code:"751102",   name:"Psychologie de l'entretien",                                                         prof:"N. Favez",                      schedule:"A · Lun 14h–16h" },
+          { code:"751135",   name:"Évaluation en neuropsychologie clinique de l'adulte",                                prof:"F. Esposito",                   schedule:"A · Jeu 12h–14h" },
+          { code:"751122",   name:"Questions approfondies en neuropsychologie clinique des affections démentielles",    prof:"A. Juillerat Van der Linden",   schedule:"A · Jeu 8h–10h" },
+          { code:"751STTE6", name:"Stage de terrain",                                                                   prof:"—",                             schedule:"6 crédits" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "transversal",
+    label: "Enseignements transversaux",
+    credits: "",
+    axes: [
+      {
+        label: "Recherche et mémoire",
+        courses: [
+          { code:"751CL5",   name:"Colloque de recherche",   prof:"—",  schedule:"0 crédit" },
+          { code:"751MEM",   name:"Mémoire",                 prof:"—",  schedule:"30 crédits" },
+        ]
+      },
+    ]
+  },
+  // ── ORIENTATIONS FONDAMENTALES ──────────────────────────────────────────
+  {
+    id: "of_affective",
+    label: "Orientation fondamentale — Psychologie affective",
+    credits: "24 crédits · Responsable : Prof. G. Gendolla",
+    axes: [
+      {
+        label: "Enseignements obligatoires (12 crédits dont 1 TP à choix)",
+        courses: [
+          { code:"7217P",  name:"Autorégulation : le « self » en action",                    prof:"G. Gendolla",    schedule:"P · Lun 12h–14h" },
+          { code:"7310I",  name:"Expression et communication de l'émotion",                  prof:"D. Grandjean",   schedule:"P · Mer 12h–14h" },
+          { code:"751021", name:"Les motifs et la motivation (TP)",                           prof:"K. Brinkmann",   schedule:"P · Mar 10h–12h" },
+          { code:"751022", name:"Psychologie de l'effort (TP)",                               prof:"N. Silvestrini", schedule:"P · Lun 14h–16h" },
+          { code:"751036", name:"Neurosciences affectives (TP)",                              prof:"L. Ceravolo",    schedule:"P · Mar 12h–14h" },
+          { code:"751037", name:"Approches cognitives de l'émotion",                          prof:"Y. Stussi",      schedule:"A · Mar 14h–16h" },
+        ]
+      },
+      {
+        label: "Enseignements à choix (12 ou 15 crédits)",
+        courses: [
+          { code:"24N07",  name:"Sommeil et rêves : mécanismes et fonctions",                 prof:"V. Sterpenich",  schedule:"Sciences" },
+          { code:"751001", name:"Psychologie de la douleur",                                  prof:"N. Silvestrini", schedule:"A · Lun 12h–14h" },
+          { code:"751003", name:"Neuropsychology of Music",                                   prof:"C. James",       schedule:"P · Mer 10h–12h" },
+          { code:"751005", name:"Stress et adaptation – déterminants psychologiques, comportementaux et biologiques", prof:"S. With", schedule:"A · Mar 8h–10h" },
+          { code:"751017", name:"Psychologie de la motivation dans les organisations",         prof:"K. Brinkmann",   schedule:"A · Mar 12h–14h" },
+          { code:"751031", name:"Motivation, affect et personnalité : recherches actuelles",  prof:"G. Gendolla",    schedule:"A · Mar 16h–18h" },
+          { code:"751035", name:"Neuropsychologie des émotions et neurosciences affectives",  prof:"D. Grandjean",   schedule:"Non donné 26-27" },
+          { code:"751043", name:"Emotions et apprentissages",                                  prof:"M. Filippa",     schedule:"P · Mer 14h–16h" },
+          { code:"751044", name:"Emotions animales",                                           prof:"T. Gruber",      schedule:"A · Lun 16h–18h" },
+          { code:"751045", name:"Voix, sons et émotions : origines de la communication vocale et interventions précoces", prof:"M. Filippa", schedule:"A · Mer 14h–16h" },
+          { code:"751046", name:"Exploration des processus automatiques : biais cognitifs, amorçage et mémoire implicite", prof:"D. Framorando", schedule:"A · Lun 14h–16h" },
+          { code:"751200", name:"Habitudes et systèmes de mémoire",                           prof:"J. Péron",       schedule:"Non donné 25-26" },
+          { code:"751345", name:"Le métier et les bonnes pratiques des chercheurs·euses en psychologie", prof:"E. Vergauwe", schedule:"P · Ven 14h–16h" },
+          { code:"751524", name:"Analyses dynamiques des signaux en sciences affectives",     prof:"E. Pool",        schedule:"A · Mer 16h–18h" },
+          { code:"751610", name:"Affect et prise de décision",                                prof:"T. Brosch",      schedule:"P · Lun 10h–12h" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "of_cognitive",
+    label: "Orientation fondamentale — Psychologie cognitive",
+    credits: "24 crédits · Responsable : Julie Franck",
+    axes: [
+      {
+        label: "Fondements obligatoires (15 crédits)",
+        courses: [
+          { code:"751201", name:"Langage",                                                    prof:"J. Franck",      schedule:"P · Mer 14h–16h" },
+          { code:"751202", name:"Attention et fonctions exécutives",                          prof:"D. Kerzel",      schedule:"P · Mer 16h–18h" },
+          { code:"751204", name:"Neuropsychologie cognitive",                                  prof:"V. Descloux",    schedule:"A · Ven 14h–18h" },
+          { code:"751208", name:"Systèmes de mémoire",                                        prof:"V. Borghesani",  schedule:"P · Lun 8h–10h" },
+        ]
+      },
+      {
+        label: "Méthodologie en sciences cognitives (3 crédits à choix)",
+        courses: [
+          { code:"24N05",  name:"Techniques for investigating brain functions (GUN)",         prof:"A. Hervais-Adelman", schedule:"Sciences" },
+          { code:"751242", name:"Électroencéphalographie en psychologie (TP)",                prof:"N. Burra",       schedule:"A · Jeu 12h–14h" },
+          { code:"751513", name:"Introduction à la programmation d'expériences",              prof:"D. Kerzel / A. Posada", schedule:"A · Mar 10h–12h" },
+        ]
+      },
+      {
+        label: "Enseignements à choix (6 à 9 crédits)",
+        courses: [
+          { code:"24N01",  name:"Principles of neurobiology (GUN)",                           prof:"D. Huber",       schedule:"Sciences" },
+          { code:"24N05",  name:"Techniques for investigating brain functions (GUN)",         prof:"A. Hervais-Adelman", schedule:"Sciences" },
+          { code:"24N07",  name:"Neurosciences du sommeil : physiologie, fonctions et pathologies", prof:"V. Sterpenich", schedule:"Sciences" },
+          { code:"751003", name:"Neuropsychology of Music",                                   prof:"C. James",       schedule:"P · Ven 14h–16h (fr) / Jeu 16h–18h (en)" },
+          { code:"751044", name:"Emotions animales",                                           prof:"T. Gruber",      schedule:"P · Mer 10h–12h" },
+          { code:"751046", name:"Exploration des processus automatiques : biais cognitifs, amorçage et mémoire implicite", prof:"D. Framorando", schedule:"A · Mer 14h–16h" },
+          { code:"751116", name:"Neuropsychologie de l'enfant et de l'adolescent",            prof:"C. Mayor",       schedule:"A · Mar 8h–10h" },
+          { code:"751131", name:"Regards croisés sur la neuropsychologie clinique de l'adulte", prof:"J. Péron",    schedule:"P · Lun 14h–16h" },
+          { code:"751200", name:"Habitudes et systèmes de mémoire",                           prof:"J. Péron",       schedule:"Non donné 25-26" },
+          { code:"751242", name:"Électroencéphalographie en psychologie (TP)",                prof:"N. Burra",       schedule:"A · Jeu 12h–14h" },
+          { code:"751243", name:"Cognitive neuroscience of language",                         prof:"V. Borghesani",  schedule:"P · Ven 8h–10h" },
+          { code:"751330", name:"Développement cognitif et apprentissage",                    prof:"C. Lutz",        schedule:"A · Ven 12h–14h" },
+          { code:"751339", name:"Plasticité cérébrale et développement",                      prof:"D. Bavelier / M. Cohen", schedule:"P · Ven 12h–14h" },
+          { code:"751345", name:"Le métier et les bonnes pratiques des chercheurs·euses en psychologie", prof:"E. Vergauwe", schedule:"P · Ven 14h–16h" },
+          { code:"751513", name:"Introduction à la programmation d'expériences",              prof:"D. Kerzel / A. Posada", schedule:"A · Mar 10h–12h" },
+          { code:"75400",  name:"Neuropsychologie du langage chez l'adulte",                  prof:"M. Laganaro",    schedule:"A · Mar 10h–12h" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "of_developpementale",
+    label: "Orientation fondamentale — Psychologie développementale",
+    credits: "24 crédits · Responsable : Evie Vergauwe",
+    axes: [
+      {
+        label: "TP obligatoire (6 crédits)",
+        courses: [
+          { code:"751300", name:"TP Psychologie du développement",                            prof:"F. Lejeune",     schedule:"A · Mar 16h–19h / P · Ven 9h–12h" },
+        ]
+      },
+      {
+        label: "Domaine 1 : Développement cognitif (min. 6 crédits)",
+        courses: [
+          { code:"751330", name:"Développement cognitif et apprentissage",                    prof:"C. Lutz",        schedule:"A · Ven 12h–14h" },
+          { code:"751337", name:"Vieillissement cognitif et différences individuelles",       prof:"A. Hering",      schedule:"Cours bloc Sam 9h15–16h30" },
+          { code:"751338", name:"Développement cognitif dans une perspective de life-span",   prof:"M. Kliegel",     schedule:"Cours bloc Sam 9h15–16h30" },
+          { code:"751339", name:"Plasticité cérébrale et développement",                      prof:"D. Bavelier / M. Cohen", schedule:"P · Ven 12h–14h" },
+          { code:"751342", name:"Des théories en psychologie du développement cognitif à la pratique", prof:"N. Langerock", schedule:"Non donné 2025-2026" },
+          { code:"751344", name:"Développement des réserves et de la vulnérabilité dans une perspective interdisciplinaire lifespan", prof:"A. Ihle / C. Lampraki / A. Mehrpour", schedule:"A · Lun 16h–18h" },
+        ]
+      },
+      {
+        label: "Domaine 2 : Développement socio-affectif et perceptivo-moteur (min. 6 crédits)",
+        courses: [
+          { code:"751311", name:"Séminaire des Archives J. Piaget",                           prof:"M. Kliegel",     schedule:"P · Mer 18h–20h" },
+          { code:"75133B", name:"Développement précoce des émotions",                         prof:"E. Gentaz",      schedule:"P · Mar 10h–12h" },
+          { code:"75133D", name:"Développement affectif et social de la naissance à l'adolescence", prof:"S. Richard Glassey / E. Kalogirou", schedule:"AN · Mer 12h–14h" },
+          { code:"751603", name:"Champs d'application",                                        prof:"M. Haas / C. Scarampi", schedule:"A · Ven 8h–12h / 14h–18h" },
+        ]
+      },
+      {
+        label: "Domaine 3 : Développement dans des populations atypiques et Recherche (min. 6 crédits)",
+        courses: [
+          { code:"751111", name:"Gérontopsychologie générale et clinique",                    prof:"C. Delaloye",    schedule:"A · Mar 18h–20h" },
+          { code:"751136", name:"Neuropsychologie clinique intégrative des affections démentielles", prof:"A. Juillerat Van der Linden", schedule:"P · Mar 16h–18h" },
+          { code:"751345", name:"Le métier et les bonnes pratiques des chercheurs·euses en psychologie", prof:"E. Vergauwe", schedule:"P · Ven 14h–16h" },
+          { code:"751346", name:"La méthode du calendrier de vie dans la recherche interdisciplinaire lifespan", prof:"A. Ihle / C. Lampraki / A. Mehrpour", schedule:"P · Ven 14h–16h" },
+          { code:"751525", name:"Analyses secondaires de données en psychologie du développement lifespan", prof:"A. Ihle / C. Lampraki / A. Mehrpour", schedule:"P · Ven 12h–14h" },
+          { code:"751702", name:"Psychologie de la déficience visuelle chez l'enfant et l'adulte", prof:"D. Valente", schedule:"A · Mer 16h–18h" },
+          { code:"751705", name:"Psychologie de la déficience auditive chez l'enfant et l'adulte", prof:"J. Malsert", schedule:"A · Mar 14h–16h" },
+          { code:"752223", name:"Le projet individualisé en éducation précoce spécialisée",   prof:"B. Martini-Willemin", schedule:"A · Jeu 10h–12h" },
+          { code:"752251", name:"Trouble du développement intellectuel : défis et enjeux à différentes étapes de la vie", prof:"N. Nuber", schedule:"A · Lun 12h–14h" },
+          { code:"752255", name:"Compétences sociales et adaptatives et intégration des personnes à besoins éducatifs particuliers", prof:"M. Hessels / C. Richard", schedule:"P · Lun 10h–12h" },
+        ]
+      },
+    ]
+  },
+  {
+    id: "of_sociale",
+    label: "Orientation fondamentale — Psychologie sociale",
+    credits: "24 crédits · Responsable : Clara Kulich",
+    axes: [
+      {
+        label: "Fondements obligatoires (12 crédits)",
+        courses: [
+          { code:"72114",  name:"Identité sociale et relations intergroupes",                 prof:"V. Iacoviello-Frederic", schedule:"A · Mar 14h–16h" },
+          { code:"72115",  name:"Attitudes et persuasion",                                     prof:"J. Falomir Pichastor",   schedule:"P · Mer 10h–14h" },
+          { code:"72116",  name:"Identité personnelle et relations interpersonnelles",         prof:"A. Quiamzade",           schedule:"A · Mer 10h–12h" },
+        ]
+      },
+      {
+        label: "Enseignements à choix (12 ou 15 crédits — au moins 1 TP obligatoire)",
+        courses: [
+          { code:"751345", name:"Le métier et les bonnes pratiques des chercheurs·euses en psychologie", prof:"E. Vergauwe", schedule:"P · Ven 14h–16h" },
+          { code:"751435", name:"Psychologie sociale du genre",                               prof:"C. Kulich",      schedule:"A · Lun 14h–16h" },
+          { code:"751436", name:"Psychologie sociale interculturelle",                        prof:"N. Iacoviello-Frederic", schedule:"P · Mer 14h–16h" },
+          { code:"751437", name:"Normes sociales et changement sociétal",                     prof:"V. Iacoviello-Frederic", schedule:"P · Mar 16h–18h" },
+          { code:"751438", name:"Approche psychosociale de la santé mentale",                 prof:"J. Blonde",      schedule:"P · Mer 16h–18h" },
+          { code:"72113",  name:"TP Psychologie sociale — expérimentale",                     prof:"C. Kulich",      schedule:"AN · Lun 12h–14h" },
+          { code:"751440", name:"TP Psychologie sociale — questionnaire",                     prof:"J. Blonde / V. Iacoviello-Frederic", schedule:"AN · Lun 12h–14h" },
+          { code:"751439", name:"Comparaison sociale et enjeux de compétence : estime de soi, performance et apprentissage", prof:"A. Quiamzade", schedule:"A · Mer 12h–14h" },
+          { code:"751604", name:"Communiquer et persuader",                                   prof:"J. Falomir Pichastor / A. Quiamzade", schedule:"A · Ven 8h–12h / 14h–18h" },
+        ]
+      },
+    ]
+  },
+];
+
+// Build a unique course key (code + moduleId to allow same code in different modules)
+function courseKey(moduleId, code) { return `${moduleId}__${code}`; }
+
+// ─── AIRTABLE CONFIG ────────────────────────────────────────────────────────
+// ⚠️ Token visible côté client — limité à data.records:read + write sur cette base uniquement
+
+const AT_TOKEN = 'patGQON3X5aKfRI5b.7cf0ee6cd286b7f35753d0277ab0c1855dcae8ab09b1ceaba73bbab9c328369a';
+const AT_URL   = 'https://api.airtable.com/v0/appaRc1RqzAIQLydU/tblqJyWya87HjwcBF';
+const AT_HDR   = { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' };
+
+// Cache local (rempli au chargement)
+let reviewsCache = {};
+
+function loadReviews() { return reviewsCache; }
+
+async function fetchAllReviews() {
+  let records = [], offset = null;
+  try {
+    do {
+      const url = AT_URL + (offset ? `?offset=${encodeURIComponent(offset)}` : '');
+      const res = await fetch(url, { headers: AT_HDR });
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      records = records.concat(data.records || []);
+      offset = data.offset || null;
+    } while (offset);
+  } catch(e) {
+    console.error('Airtable fetch error:', e);
+  }
+  reviewsCache = {};
+  records.forEach(rec => {
+    const f = rec.fields;
+    if (!f.course_key) return;
+    if (!reviewsCache[f.course_key]) reviewsCache[f.course_key] = [];
+    reviewsCache[f.course_key].push({
+      nick:     f.anon_id  || f.nick || 'Anonyme',
+      global:   f.note_globale   || 0,
+      prof:     f.note_prof      || 0,
+      exam:     f.note_examen    || 0,
+      workload: f.note_travail   || 0,
+      modality: f.modalite  || '',
+      comment:  f.commentaire || '',
+      date:     f.date      || '',
+    });
+  });
+}
+
+async function postReview(key, courseName, review) {
+  const res = await fetch(AT_URL, {
+    method: 'POST',
+    headers: AT_HDR,
+    body: JSON.stringify({ fields: Object.fromEntries(Object.entries({
+      course_key:   key,
+      course_name:  courseName,
+      anon_id:      review.nick,
+      note_globale: review.global   || null,
+      note_prof:    review.prof     || null,
+      note_examen:  review.exam     || null,
+      note_travail: review.workload || null,
+      modalite:     review.modality || null,
+      commentaire:  review.comment  || null,
+      date:         review.date,
+    }).filter(([, v]) => v !== null && v !== undefined)) })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    console.error('Airtable POST error:', res.status, data);
+    throw new Error(`${res.status} — ${JSON.stringify(data)}`);
+  }
+  return data;
+}
+
+// ─── RATINGS STATE ──────────────────────────────────────────────────────────
+
+const ratings = { global: 0, prof: 0, exam: 0, workload: 0 };
+const STAR_LABELS = {
+  global:   ["Très mauvaise","Mauvaise","Moyenne","Bonne","Excellente"],
+  prof:     ["Très mauvaise","Mauvaise","Moyenne","Bonne","Excellente"],
+  exam:     ["Très facile","Facile","Moyen","Difficile","Très difficile"],
+  workload: ["Très légère","Légère","Modérée","Lourde","Très lourde"],
+};
+
+function buildStarInput(containerId, field) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = "";
+  for (let i = 1; i <= 5; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "★";
+    btn.dataset.val = i;
+    btn.title = STAR_LABELS[field][i-1];
+    btn.onclick = () => setRating(field, i);
+    el.appendChild(btn);
+  }
+  const lbl = document.createElement("span");
+  lbl.className = "star-label";
+  lbl.id = `lbl_${field}`;
+  el.appendChild(lbl);
+}
+
+function setRating(field, val) {
+  ratings[field] = val;
+  const container = document.querySelector(`[data-field="${field}"]`);
+  if (!container) return;
+  container.querySelectorAll("button").forEach((btn, i) => {
+    btn.classList.toggle("active", i < val);
+  });
+  const lbl = document.getElementById(`lbl_${field}`);
+  if (lbl) lbl.textContent = val ? STAR_LABELS[field][val-1] : "";
+}
+
+function toggleModalityOther() {
+  const sel = document.getElementById("formModality");
+  const other = document.getElementById("formModalityOther");
+  other.style.display = sel.value === "__autre__" ? "block" : "none";
+  if (sel.value !== "__autre__") other.value = "";
+}
+
+function getModalityValue() {
+  const sel = document.getElementById("formModality");
+  if (sel.value === "__autre__") {
+    return document.getElementById("formModalityOther").value.trim() || "Autre";
+  }
+  return sel.value;
+}
+
+function resetForm() {
+  ["global","prof","exam","workload"].forEach(f => setRating(f, 0));
+  document.getElementById("formModality").value = "";
+  document.getElementById("formModalityOther").value = "";
+  document.getElementById("formModalityOther").style.display = "none";
+  document.getElementById("formComment").value = "";
+}
+
+// ─── FILTERS ────────────────────────────────────────────────────────────────
+
+const FILTER_GROUPS = [
+  {
+    label: "📚 PCI",
+    ids: [
+      { id: "base",              label: "Module de base" },
+      { id: "approfondi_ouvert", label: "Questions approfondies" },
+      { id: "approfondi_f1",     label: "Savoir-faire" },
+      { id: "approfondi_f2",     label: "Troubles du développement" },
+      { id: "approfondi_f3",     label: "Neuropsychologie" },
+      { id: "transversal",       label: "Mémoire & colloque" },
+    ]
+  },
+  {
+    label: "🧠 OF",
+    ids: [
+      { id: "of_affective",         label: "Affective" },
+      { id: "of_cognitive",         label: "Cognitive" },
+      { id: "of_developpementale",  label: "Développementale" },
+      { id: "of_sociale",           label: "Sociale" },
+    ]
+  },
+];
+
+// All module IDs
+const ALL_IDS = FILTER_GROUPS.flatMap(g => g.ids.map(i => i.id));
+let activeModules = new Set(ALL_IDS);
+
+function buildFilters() {
+  const sec = document.getElementById("filterSection");
+  sec.innerHTML = "";
+  FILTER_GROUPS.forEach(group => {
+    const row = document.createElement("div");
+    row.className = "filter-group";
+    const lbl = document.createElement("span");
+    lbl.className = "filter-group-label";
+    lbl.textContent = group.label;
+    row.appendChild(lbl);
+    group.ids.forEach(({ id, label }) => {
+      const pill = document.createElement("button");
+      pill.className = "filter-pill";
+      pill.textContent = label;
+      pill.dataset.id = id;
+      pill.onclick = () => toggleFilter(id);
+      row.appendChild(pill);
+    });
+    sec.appendChild(row);
+  });
+  updateFilterUI();
+}
+
+function toggleFilter(id) {
+  if (activeModules.has(id)) {
+    // If this is the only one active, re-select all instead of leaving nothing
+    if (activeModules.size === 1) {
+      activeModules = new Set(ALL_IDS);
+    } else {
+      activeModules.delete(id);
+    }
+  } else {
+    activeModules.add(id);
+  }
+  updateFilterUI();
+  renderCourses(document.getElementById("searchInput").value);
+}
+
+function updateFilterUI() {
+  document.querySelectorAll(".filter-pill").forEach(pill => {
+    pill.classList.toggle("off", !activeModules.has(pill.dataset.id));
+  });
+}
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+
+function starsHTML(val, n) {
+  if (!n) return '<span class="no-review">Pas encore noté</span>';
+  const filled = Math.round(val);
+  return `${"★".repeat(filled)}${"☆".repeat(5-filled)}`;
+}
+
+function avgOf(reviews, field) {
+  const vals = reviews.map(r => r[field]).filter(v => v > 0);
+  if (!vals.length) return null;
+  return vals.reduce((a,b) => a+b, 0) / vals.length;
+}
+
+function renderAgg(key) {
+  const reviews = (loadReviews()[key] || []);
+  const n = reviews.length;
+  const sec = document.getElementById("aggSection");
+  if (!n) {
+    sec.innerHTML = `<div class="no-reviews-msg">Aucun avis pour l'instant — soyez le premier !</div>`;
+    return;
+  }
+
+  const avg = f => avgOf(reviews, f);
+  const fmt = v => v ? v.toFixed(1) : "—";
+
+  const modCounts = {};
+  reviews.forEach(r => { if(r.modality) modCounts[r.modality] = (modCounts[r.modality]||0)+1; });
+  const modTags = Object.entries(modCounts).sort((a,b)=>b[1]-a[1])
+    .map(([m,c]) => `<span class="mod-tag">${m} (${c})</span>`).join("");
+
+  sec.innerHTML = `
+    <h3>📊 Résumé — ${n} avis</h3>
+    <div class="agg-grid">
+      <div class="agg-item">
+        <div class="agg-label">Qualité globale</div>
+        <div class="agg-score">
+          ${fmt(avg("global"))} <span class="stars">${avg("global") ? "★".repeat(Math.round(avg("global"))) : "☆☆☆☆☆"}</span>
+          <span class="n">/ 5</span>
+        </div>
+      </div>
+      <div class="agg-item">
+        <div class="agg-label">Qualité enseignement</div>
+        <div class="agg-score">
+          ${fmt(avg("prof"))} <span class="stars">${avg("prof") ? "★".repeat(Math.round(avg("prof"))) : "☆☆☆☆☆"}</span>
+          <span class="n">/ 5</span>
+        </div>
+      </div>
+      <div class="agg-item">
+        <div class="agg-label">Difficulté examen</div>
+        <div class="agg-score">
+          ${fmt(avg("exam"))} <span class="stars">${avg("exam") ? "★".repeat(Math.round(avg("exam"))) : "☆☆☆☆☆"}</span>
+          <span class="n">/ 5</span>
+        </div>
+      </div>
+      <div class="agg-item">
+        <div class="agg-label">Charge de travail</div>
+        <div class="agg-score">
+          ${fmt(avg("workload"))} <span class="stars">${avg("workload") ? "★".repeat(Math.round(avg("workload"))) : "☆☆☆☆☆"}</span>
+          <span class="n">/ 5</span>
+        </div>
+      </div>
+    </div>
+    ${modTags ? `<div class="agg-modalities"><strong style="font-size:12px;color:var(--gray-700)">Modalités :</strong> ${modTags}</div>` : ""}
+  `;
+}
+
+function renderReviews(key) {
+  const reviews = (loadReviews()[key] || []).slice().reverse();
+  const sec = document.getElementById("reviewsList");
+  if (!reviews.length) { sec.innerHTML = ""; return; }
+
+  const chips = (r) => {
+    const items = [
+      r.global   ? {lbl:"Qualité cours",        val:r.global}   : null,
+      r.prof     ? {lbl:"Qualité enseignement", val:r.prof}      : null,
+      r.exam     ? {lbl:"Examen",   val:r.exam}      : null,
+      r.workload ? {lbl:"Travail",  val:r.workload}  : null,
+    ].filter(Boolean);
+    return items.map(i => `
+      <span class="review-rating-chip">
+        <span class="chip-stars">${"★".repeat(i.val)}</span>
+        <span class="chip-label">${i.lbl}</span>
+      </span>`).join("");
+  };
+
+  sec.innerHTML = `<h3>💬 Avis des étudiant·e·s</h3>` +
+    reviews.map(r => `
+      <div class="review-card">
+        <div class="review-card-header">
+          <span class="reviewer-name">👤 Anonyme</span>
+          ${r.modality ? `<span class="review-mod-tag">${escHtml(r.modality)}</span>` : ""}
+          <span class="review-date">${r.date ? new Date(r.date).toLocaleDateString("fr-CH", {day:"numeric", month:"short", year:"numeric"}) : ""}</span>
+        </div>
+        <div class="review-ratings-row">${chips(r)}</div>
+        ${r.comment ? `<div class="review-comment">${escHtml(r.comment)}</div>` : ""}
+      </div>
+    `).join("");
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ─── COURSE LISTING ─────────────────────────────────────────────────────────
+
+let currentKey = null;
+
+function renderCourses(query) {
+  const q = (query || "").toLowerCase().trim();
+  const reviews = loadReviews();
+  const container = document.getElementById("coursesContainer");
+  container.innerHTML = "";
+
+  MODULES.forEach(mod => {
+    // Skip if this module is filtered out
+    if (!activeModules.has(mod.id)) return;
+    let modHasResults = false;
+    const axesHTML = mod.axes.map(axe => {
+      const filtered = axe.courses.filter(c => {
+        if (!q) return true;
+        return c.name.toLowerCase().includes(q) || c.prof.toLowerCase().includes(q) || c.code.toLowerCase().includes(q);
+      });
+      if (!filtered.length) return "";
+      modHasResults = true;
+
+      const courseItems = filtered.map(c => {
+        const key = courseKey(mod.id, c.code);
+        const revs = reviews[key] || [];
+        const n = revs.length;
+        const avgG = avgOf(revs, "global");
+
+        const ratingHTML = n
+          ? `<span class="mini-stars">${"★".repeat(Math.round(avgG))}${"☆".repeat(5-Math.round(avgG))}</span><span class="mini-count">${avgG.toFixed(1)} (${n})</span>`
+          : `<span class="no-review">—</span>`;
+
+        return `
+          <div class="course-item" onclick="openModal('${escHtml(mod.id)}','${escHtml(c.code)}')">
+            <span class="course-code">${escHtml(c.code)}</span>
+            <div class="course-info">
+              <div class="course-name">${escHtml(c.name)}</div>
+              <div class="course-meta">👤 ${escHtml(c.prof)} &nbsp;·&nbsp; 🕐 ${escHtml(c.schedule)}</div>
+            </div>
+            <div class="course-ratings">${ratingHTML}</div>
+            <span class="chevron">›</span>
+          </div>`;
+      }).join("");
+
+      const isOF = mod.id.startsWith("of_");
+      return `<div class="axe-title${isOF ? " of" : ""}">${escHtml(axe.label)}</div>${courseItems}`;
+    }).join("");
+
+    if (!modHasResults) return;
+
+    const isOF = mod.id.startsWith("of_");
+    const section = document.createElement("div");
+    section.className = "module-section";
+    section.innerHTML = `
+      <div class="module-title${isOF ? " of" : ""}">
+        ${escHtml(mod.label)}
+        ${mod.credits ? `<span class="credits">${escHtml(mod.credits)}</span>` : ""}
+      </div>
+      <div class="course-list">${axesHTML}</div>
+    `;
+    container.appendChild(section);
+  });
+
+  if (!container.innerHTML.trim()) {
+    container.innerHTML = `<div class="empty">Aucun cours trouvé pour « ${escHtml(query)} »</div>`;
+  }
+}
+
+function filterCourses() {
+  const q = document.getElementById("searchInput").value;
+  renderCourses(q);
+}
+
+// ─── MODAL ──────────────────────────────────────────────────────────────────
+
+function findCourse(moduleId, code) {
+  const mod = MODULES.find(m => m.id === moduleId);
+  if (!mod) return null;
+  for (const axe of mod.axes) {
+    const c = axe.courses.find(c => c.code === code);
+    if (c) return { course: c, module: mod };
+  }
+  return null;
+}
+
+function openModal(moduleId, code) {
+  const found = findCourse(moduleId, code);
+  if (!found) return;
+  const { course, module: mod } = found;
+
+  currentKey = courseKey(moduleId, code);
+  currentCourseName = course.name;
+
+  document.getElementById("modalTitle").textContent = course.name;
+  document.getElementById("modalMeta").textContent = `${course.prof} · ${course.schedule} · ${course.code}`;
+
+  renderAgg(currentKey);
+  renderReviews(currentKey);
+
+  // Build star inputs
+  ["global","prof","exam","workload"].forEach(f => buildStarInput(`stars_${f}`, f));
+  resetForm();
+
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+  currentKey = null;
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById("overlay")) closeModal();
+}
+
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+// ─── SUBMIT ─────────────────────────────────────────────────────────────────
+
+let currentCourseName = '';
+
+async function submitReview() {
+  if (!ratings.global) { alert("La qualité globale du cours est obligatoire (⭐ 1–5)."); return; }
+  if (!ratings.prof)   { alert("La qualité de l'enseignement est obligatoire (⭐ 1–5)."); return; }
+
+  const review = {
+    nick: getAnonId(),
+    global:   ratings.global,
+    prof:     ratings.prof,
+    exam:     ratings.exam,
+    workload: ratings.workload,
+    modality: getModalityValue(),
+    comment:  document.getElementById("formComment").value.trim(),
+    date:     new Date().toISOString().split('T')[0],
+  };
+
+  const btn = document.querySelector(".submit-btn");
+  btn.disabled = true;
+  btn.textContent = "Envoi en cours…";
+
+  try {
+    const result = await postReview(currentKey, currentCourseName, review);
+    console.log('Airtable response:', result);
+
+    // Update local cache immediately (no need to re-fetch)
+    if (!reviewsCache[currentKey]) reviewsCache[currentKey] = [];
+    reviewsCache[currentKey].push(review);
+
+    renderAgg(currentKey);
+    renderReviews(currentKey);
+    resetForm();
+    renderCourses(document.getElementById("searchInput").value);
+    document.getElementById("reviewsList").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch(e) {
+    console.error('Submit error:', e);
+    alert("L'envoi a échoué. Vérifie ta connexion internet et réessaie.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Publier mon avis";
+  }
+}
+
+// ─── ANON ID ─────────────────────────────────────────────────────────────────
+
+function getAnonId() {
+  let id = localStorage.getItem("pci_anon_id");
+  if (!id) {
+    id = "anon_" + Math.random().toString(36).slice(2, 10);
+    localStorage.setItem("pci_anon_id", id);
+  }
+  return id;
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+
+buildFilters();
+document.getElementById("coursesContainer").innerHTML =
+  `<div class="empty">⏳ Chargement des avis depuis Airtable…</div>`;
+
+fetchAllReviews()
+  .then(() => renderCourses())
+  .catch(() => renderCourses());
+</script>
+</body>
+</html>
