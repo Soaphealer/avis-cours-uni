@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avis sur les cours — Master Psychologie Clinique Intégrative · UNIGE</title>
+<title>Avis sur les cours — Master Psychologie Clinique Intégrative</title>
 <style>
   :root {
     --red: #c0392b;
@@ -35,7 +35,16 @@
     padding: 24px 32px 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,.2);
   }
-  header .logo { font-size: 12px; opacity: .75; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .disclaimer-banner {
+    font-size: 11px;
+    background: rgba(0,0,0,.25);
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    letter-spacing: .3px;
+    display: inline-block;
+    opacity: .9;
+  }
   header h1 { font-size: 22px; font-weight: 700; line-height: 1.25; }
   header p { font-size: 14px; opacity: .8; margin-top: 4px; }
   .header-meta { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
@@ -399,6 +408,42 @@
   }
   .hidden { display: none; }
 
+  /* FOOTER */
+  .app-footer {
+    text-align: center;
+    padding: 20px 16px 32px;
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+  .app-footer a {
+    color: var(--blue);
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  .app-footer a:hover { text-decoration: underline; }
+
+  /* PRIVACY MODAL */
+  #privacyOverlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  #privacyOverlay.hidden { display: none; }
+  #privacyBox {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    max-width: 520px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    position: relative;
+  }
+  #privacyBox h2 { font-size: 17px; margin-bottom: 14px; }
+  #privacyBox p, #privacyBox li { font-size: 13px; color: var(--gray-700); line-height: 1.55; margin-bottom: 8px; }
+  #privacyBox ul { padding-left: 18px; }
+  #privacyBox .close-btn { position: absolute; top: 12px; right: 14px; }
+
   @media (max-width: 540px) {
     header { padding: 18px 16px; }
     header h1 { font-size: 18px; }
@@ -410,7 +455,7 @@
 <body>
 
 <header>
-  <div class="logo">Université de Genève · FPSE</div>
+  <div class="disclaimer-banner">⚠️ Projet étudiant indépendant — sans affiliation ni approbation de l'Université de Genève</div>
   <h1>Avis sur les cours</h1>
   <p>Master de Psychologie Clinique Intégrative — 2025–2026</p>
   <div class="filter-section" id="filterSection"></div>
@@ -419,7 +464,7 @@
 <div class="container">
   <div class="search-bar">
     <svg width="18" height="18" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    <input type="text" id="searchInput" placeholder="Rechercher un cours ou un professeur…" oninput="filterCourses()">
+    <input type="text" id="searchInput" placeholder="Rechercher un cours…" oninput="filterCourses()">
   </div>
 
   <div id="coursesContainer"></div>
@@ -476,6 +521,33 @@
         <button class="submit-btn" onclick="submitReview()">Publier mon avis</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+  <a href="mailto:soaphealer@proton.me">📩 Contact</a>
+  <a href="mailto:soaphealer@proton.me?subject=Demande%20de%20suppression%20d%27un%20avis&body=Bonjour%2C%0A%0AJe%20souhaite%20demander%20la%20suppression%20de%20l%27avis%20suivant%20%3A%0A%0ACours%20%3A%20...%0ADate%20approximative%20%3A%20...%0A%0AMerci.">🗑️ Demander la suppression d'un avis</a>
+  <a href="#" onclick="document.getElementById('privacyOverlay').classList.remove('hidden'); return false;">🔒 Confidentialité</a>
+</footer>
+
+<!-- PRIVACY MODAL -->
+<div id="privacyOverlay" class="hidden" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div id="privacyBox">
+    <button class="close-btn" onclick="document.getElementById('privacyOverlay').classList.add('hidden')">×</button>
+    <h2>🔒 Notice de confidentialité</h2>
+    <p><strong>Responsable :</strong> Projet étudiant anonyme — <a href="mailto:soaphealer@proton.me">soaphealer@proton.me</a></p>
+    <p><strong>Finalité :</strong> Permettre aux étudiant·e·s du Master PCI d'évaluer les cours de manière anonyme et collective.</p>
+    <p><strong>Données collectées :</strong></p>
+    <ul>
+      <li>Notes (1–5) et commentaire textuel — facultatif</li>
+      <li>Un identifiant technique non réversible dérivé de votre adresse IP, utilisé uniquement pour détecter les abus. Il n'est jamais rendu public.</li>
+      <li>Aucune donnée personnelle directement identifiable n'est collectée.</li>
+    </ul>
+    <p><strong>Stockage :</strong> Airtable Inc. (USA). Les données sont traitées hors de l'UE/Suisse. Airtable est certifié SOC 2 Type II.</p>
+    <p><strong>Durée de conservation :</strong> 5 ans, puis suppression.</p>
+    <p><strong>Vos droits (RGPD/nLPD) :</strong> Accès, rectification et suppression sur demande à <a href="mailto:soaphealer@proton.me">soaphealer@proton.me</a>. Les avis étant anonymes, merci de préciser la date et le cours concernés.</p>
+    <p><strong>Affiliation :</strong> Ce projet est indépendant et n'est ni affilié ni approuvé par l'Université de Genève.</p>
   </div>
 </div>
 
@@ -790,12 +862,11 @@ const MODULES = [
 // Build a unique course key (code + moduleId to allow same code in different modules)
 function courseKey(moduleId, code) { return `${moduleId}__${code}`; }
 
-// ─── AIRTABLE CONFIG ────────────────────────────────────────────────────────
-// ⚠️ Token visible côté client — limité à data.records:read + write sur cette base uniquement
+// ─── PROXY CONFIG ───────────────────────────────────────────────────────────
+// ⚠️ Remplace PROXY_URL par l'URL de ton Worker Cloudflare après déploiement
+// ex. : 'https://pci-proxy.TONUSERNAME.workers.dev'
 
-const AT_TOKEN = 'patGQON3X5aKfRI5b.7cf0ee6cd286b7f35753d0277ab0c1855dcae8ab09b1ceaba73bbab9c328369a';
-const AT_URL   = 'https://api.airtable.com/v0/appaRc1RqzAIQLydU/tblqJyWya87HjwcBF';
-const AT_HDR   = { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' };
+const PROXY_URL = 'https://noisy-surf-5379.soaphealer.workers.dev';
 
 // Cache local (rempli au chargement)
 let reviewsCache = {};
@@ -803,58 +874,49 @@ let reviewsCache = {};
 function loadReviews() { return reviewsCache; }
 
 async function fetchAllReviews() {
-  let records = [], offset = null;
   try {
-    do {
-      const url = AT_URL + (offset ? `?offset=${encodeURIComponent(offset)}` : '');
-      const res = await fetch(url, { headers: AT_HDR });
-      if (!res.ok) throw new Error(res.status);
-      const data = await res.json();
-      records = records.concat(data.records || []);
-      offset = data.offset || null;
-    } while (offset);
-  } catch(e) {
-    console.error('Airtable fetch error:', e);
-  }
-  reviewsCache = {};
-  records.forEach(rec => {
-    const f = rec.fields;
-    if (!f.course_key) return;
-    if (!reviewsCache[f.course_key]) reviewsCache[f.course_key] = [];
-    reviewsCache[f.course_key].push({
-      nick:     f.anon_id  || f.nick || 'Anonyme',
-      global:   f.note_globale   || 0,
-      prof:     f.note_prof      || 0,
-      exam:     f.note_examen    || 0,
-      workload: f.note_travail   || 0,
-      modality: f.modalite  || '',
-      comment:  f.commentaire || '',
-      date:     f.date      || '',
+    const res  = await fetch(`${PROXY_URL}/reviews`);
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    reviewsCache = {};
+    (data.records || []).forEach(r => {
+      if (!r.course_key) return;
+      if (!reviewsCache[r.course_key]) reviewsCache[r.course_key] = [];
+      reviewsCache[r.course_key].push({
+        global:   r.note_globale || 0,
+        prof:     r.note_prof    || 0,
+        exam:     r.note_examen  || 0,
+        workload: r.note_travail || 0,
+        modality: r.modalite     || '',
+        comment:  r.commentaire  || '',
+        date:     r.date         || '',
+      });
     });
-  });
+  } catch(e) {
+    console.error('Proxy fetch error:', e);
+  }
 }
 
 async function postReview(key, courseName, review) {
-  const res = await fetch(AT_URL, {
+  const res = await fetch(`${PROXY_URL}/reviews`, {
     method: 'POST',
-    headers: AT_HDR,
-    body: JSON.stringify({ fields: Object.fromEntries(Object.entries({
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Object.fromEntries(Object.entries({
       course_key:   key,
       course_name:  courseName,
-      anon_id:      review.nick,
       note_globale: review.global   || null,
       note_prof:    review.prof     || null,
       note_examen:  review.exam     || null,
       note_travail: review.workload || null,
       modalite:     review.modality || null,
       commentaire:  review.comment  || null,
-      date:         review.date,
-    }).filter(([, v]) => v !== null && v !== undefined)) })
+      date:         review.date     || null,
+    }).filter(([, v]) => v !== null && v !== undefined)))
   });
   const data = await res.json();
   if (!res.ok) {
-    console.error('Airtable POST error:', res.status, data);
-    throw new Error(`${res.status} — ${JSON.stringify(data)}`);
+    console.error('Proxy POST error:', res.status, data);
+    throw new Error(data.error || res.status);
   }
   return data;
 }
@@ -1115,7 +1177,7 @@ function renderCourses(query) {
     const axesHTML = mod.axes.map(axe => {
       const filtered = axe.courses.filter(c => {
         if (!q) return true;
-        return c.name.toLowerCase().includes(q) || c.prof.toLowerCase().includes(q) || c.code.toLowerCase().includes(q);
+        return c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q);
       });
       if (!filtered.length) return "";
       modHasResults = true;
@@ -1131,11 +1193,11 @@ function renderCourses(query) {
           : `<span class="no-review">—</span>`;
 
         return `
-          <div class="course-item" onclick="openModal('${escHtml(mod.id)}','${escHtml(c.code)}')">
+          <div class="course-item" data-module="${escHtml(mod.id)}" data-code="${escHtml(c.code)}">
             <span class="course-code">${escHtml(c.code)}</span>
             <div class="course-info">
               <div class="course-name">${escHtml(c.name)}</div>
-              <div class="course-meta">👤 ${escHtml(c.prof)} &nbsp;·&nbsp; 🕐 ${escHtml(c.schedule)}</div>
+              <div class="course-meta">🕐 ${escHtml(c.schedule)}</div>
             </div>
             <div class="course-ratings">${ratingHTML}</div>
             <span class="chevron">›</span>
@@ -1192,7 +1254,7 @@ function openModal(moduleId, code) {
   currentCourseName = course.name;
 
   document.getElementById("modalTitle").textContent = course.name;
-  document.getElementById("modalMeta").textContent = `${course.prof} · ${course.schedule} · ${course.code}`;
+  document.getElementById("modalMeta").textContent = `${course.schedule} · ${course.code}`;
 
   renderAgg(currentKey);
   renderReviews(currentKey);
@@ -1226,7 +1288,6 @@ async function submitReview() {
   if (!ratings.prof)   { alert("La qualité de l'enseignement est obligatoire (⭐ 1–5)."); return; }
 
   const review = {
-    nick: getAnonId(),
     global:   ratings.global,
     prof:     ratings.prof,
     exam:     ratings.exam,
@@ -1262,22 +1323,17 @@ async function submitReview() {
   }
 }
 
-// ─── ANON ID ─────────────────────────────────────────────────────────────────
-
-function getAnonId() {
-  let id = localStorage.getItem("pci_anon_id");
-  if (!id) {
-    id = "anon_" + Math.random().toString(36).slice(2, 10);
-    localStorage.setItem("pci_anon_id", id);
-  }
-  return id;
-}
-
 // ─── INIT ────────────────────────────────────────────────────────────────────
 
 buildFilters();
 document.getElementById("coursesContainer").innerHTML =
-  `<div class="empty">⏳ Chargement des avis depuis Airtable…</div>`;
+  `<div class="empty">⏳ Chargement des avis…</div>`;
+
+// Délégation d'événement — fix XSS (plus d'onclick inline avec données dynamiques)
+document.getElementById("coursesContainer").addEventListener("click", function(e) {
+  const item = e.target.closest(".course-item");
+  if (item) openModal(item.dataset.module, item.dataset.code);
+});
 
 fetchAllReviews()
   .then(() => renderCourses())
